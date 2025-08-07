@@ -1,12 +1,8 @@
 package virtual_robot.robots.classes;
 
 import com.qualcomm.robotcore.hardware.DeadWheelEncoder;
-import com.qualcomm.robotcore.hardware.ServoImpl;
 import com.qualcomm.robotcore.hardware.configuration.MotorType;
 
-import javafx.fxml.FXML;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.transform.Rotate;
 import virtual_robot.controller.BotConfig;
 import virtual_robot.util.AngleUtils;
 
@@ -17,13 +13,13 @@ import virtual_robot.util.AngleUtils;
  * MecanumBot is the controller class for the "mecanum_bot.fxml" markup file.
  *
  */
-@BotConfig(name = "Calamari Bot", filename = "calamari_bot")
-public class CalamariBot extends MecanumPhysicsBase {
+@BotConfig(name = "Calamari Bot 4", filename = "calamari_bot4")
+public class CalamariBot4 extends MecanumPhysicsBase {
 
     //private ServoImpl servo = null;
 
-    private MotorType encoderMotorType;
-    private DeadWheelEncoder rightEncoder, leftEncoder, xEncoder, nothingEncoder = null;
+    //private MotorType encoderMotorType;
+    //private DeadWheelEncoder rightEncoder, leftEncoder, xEncoder, nothingEncoder = null;
 
     // backServoArm is instantiated during loading via a fx:id property.
     //@FXML Rectangle backServoArm;
@@ -31,106 +27,108 @@ public class CalamariBot extends MecanumPhysicsBase {
     //Dimensions in inches for encoder wheels.
     //Right and left encoder wheels are oriented parallel to robot-Y axis (i.e., fwd-reverse)
     //X Encoder wheel is oriented parallel to the robot-X axis (i.e., right-left axis)
-    private final double ENCODER_WHEEL_DIAMETER = 2.0;
+    //private final double ENCODER_WHEEL_DIAMETER = 2.0;
     //Distances of right and left encoder wheels from robot centerline (i.e., the robot-X coordinates of the wheels)
-    private final double LEFT_ENCODER_X = -6.0;
-    private final double RIGHT_ENCODER_X = 6.0;
+    //private final double LEFT_ENCODER_X = -6.0;
+    //private final double RIGHT_ENCODER_X = 6.0;
     //Distance of X-Encoder wheel from robot-X axis (i.e., the robot-Y coordinate of the wheel)
-    private final double X_ENCODER_Y = 6.0;
+    //private final double X_ENCODER_Y = 6.0;
 
     //Dimensions in pixels -- to be determined in the constructor
-    private double encoderWheelRadius;
-    private double leftEncoderX;
-    private double rightEncoderX;
-    private double xEncoderY;
+    //private double encoderWheelRadius;
+    //private double leftEncoderX;
+    //private double rightEncoderX;
+    //private double xEncoderY;
 
-    public CalamariBot(){
+    public CalamariBot4(){
         super(false, false,
                 new String[]{"leftback", "leftfront","rightfront","rightback"}
         );
     }
 
+    /*
     public void initialize(){
         //servo = (ServoImpl)hardwareMap.servo.get("back_servo");
         //leftEncoder = hardwareMap.get(DeadWheelEncoder.class, "enc_left");
         //rightEncoder = hardwareMap.get(DeadWheelEncoder.class, "enc_right");
         //xEncoder = hardwareMap.get(DeadWheelEncoder.class, "enc_x");
 
-        encoderMotorType = MotorType.Neverest40;
+        //encoderMotorType = MotorType.Neverest40;
 
-        rightEncoder = new DeadWheelEncoder(encoderMotorType, motorController1, 0);
-        leftEncoder = new DeadWheelEncoder(encoderMotorType, motorController1, 1);
-        xEncoder = new DeadWheelEncoder(encoderMotorType, motorController1, 2);
-        nothingEncoder = new DeadWheelEncoder(encoderMotorType, motorController1, 3);
+        //rightEncoder = new DeadWheelEncoder(encoderMotorType, motorController1, 0);
+        //leftEncoder = new DeadWheelEncoder(encoderMotorType, motorController1, 1);
+        //xEncoder = new DeadWheelEncoder(encoderMotorType, motorController1, 2);
+        //nothingEncoder = new DeadWheelEncoder(encoderMotorType, motorController1, 3);
 
-        setEncoders(rightEncoder, leftEncoder, xEncoder, nothingEncoder);
+        //setEncoders(rightEncoder, leftEncoder, xEncoder, nothingEncoder);
         super.initialize();
 
-        octoQuad.setEncoder(4, leftEncoder);
-        octoQuad.setEncoder(5, rightEncoder);
-        octoQuad.setEncoder(6, xEncoder);
+        //octoQuad.setEncoder(4, leftEncoder);
+        //octoQuad.setEncoder(5, rightEncoder);
+        //octoQuad.setEncoder(6, xEncoder);
 
         //Dimensions in pixels
-        encoderWheelRadius = 0.5 * ENCODER_WHEEL_DIAMETER * botWidth / 18.0;
-        leftEncoderX = LEFT_ENCODER_X * botWidth / 18.0;
-        rightEncoderX = RIGHT_ENCODER_X * botWidth / 18.0;
-        xEncoderY = X_ENCODER_Y * botWidth / 18.0;
+        //encoderWheelRadius = 0.5 * ENCODER_WHEEL_DIAMETER * botWidth / 18.0;
+        //leftEncoderX = LEFT_ENCODER_X * botWidth / 18.0;
+        //rightEncoderX = RIGHT_ENCODER_X * botWidth / 18.0;
+        //xEncoderY = X_ENCODER_Y * botWidth / 18.0;
 
-        hardwareMap.setActive(false);
+        //hardwareMap.setActive(false);
         //backServoArm.getTransforms().add(new Rotate(0, 37.5, 67.5));
-    }
+    }*/
 
     /*
     protected void createHardwareMap(){
         super.createHardwareMap();
     }
      */
-
+    /*
     public synchronized void updateStateAndSensors(double millis){
 
         //Save old x, y, and headingRadians values for updating free wheel encoders later
-        double xOld = x;
-        double yOld = y;
-        double headingOld = headingRadians;
+        //double xOld = x;
+        //double yOld = y;
+        //double headingOld = headingRadians;
 
         //Compute new pose and update various sensors
         super.updateStateAndSensors(millis);
 
         //For the deadwheel encoders, recalculate dXR and dYR to take into account the fact that the robot
         //may have run into the wall.
-        double deltaX = x - xOld;
-        double deltaY = y - yOld;
-        double headingChange = AngleUtils.normalizeRadians(headingRadians - headingOld);
-        double avgHeading = AngleUtils.normalizeRadians(headingOld + 0.5 * headingChange);
-        double sin = Math.sin(avgHeading);
-        double cos = Math.cos(avgHeading);
+        //double deltaX = x - xOld;
+        //double deltaY = y - yOld;
+        //double headingChange = AngleUtils.normalizeRadians(headingRadians - headingOld);
+        //double avgHeading = AngleUtils.normalizeRadians(headingOld + 0.5 * headingChange);
+        //double sin = Math.sin(avgHeading);
+        //double cos = Math.cos(avgHeading);
 
-        double dxR = deltaX * cos + deltaY * sin;
-        double dyR = -deltaX * sin + deltaY * cos;
+        //double dxR = deltaX * cos + deltaY * sin;
+        //double dyR = -deltaX * sin + deltaY * cos;
 
         //Compute radians of rotation of each dead wheel encoder
-        double rightEncoderRadians = (dyR + rightEncoderX * headingChange) / encoderWheelRadius;
-        double leftEncoderRadians = (dyR + leftEncoderX * headingChange) / encoderWheelRadius;
-        double xEncoderRadians = (dxR - xEncoderY * headingChange) / encoderWheelRadius;
+        //double rightEncoderRadians = (dyR + rightEncoderX * headingChange) / encoderWheelRadius;
+        //double leftEncoderRadians = (dyR + leftEncoderX * headingChange) / encoderWheelRadius;
+        //double xEncoderRadians = (dxR - xEncoderY * headingChange) / encoderWheelRadius;
 
         //Update positions of the dead wheel encoders
-        rightEncoder.update(rightEncoderRadians, millis);
-        leftEncoder.update(leftEncoderRadians, millis);
-        xEncoder.update(xEncoderRadians, millis);
+        //rightEncoder.update(rightEncoderRadians, millis);
+        //leftEncoder.update(leftEncoderRadians, millis);
+        //xEncoder.update(xEncoderRadians, millis);
 
-    }
-
+    }*/
+    /*
     public synchronized void updateDisplay(){
         super.updateDisplay();
         //((Rotate)backServoArm.getTransforms().get(0)).setAngle(-180.0 * servo.getInternalPosition());
     }
-
+    */
+    /*
     public void powerDownAndReset(){
         super.powerDownAndReset();
         rightEncoder.stopAndReset();
         leftEncoder.stopAndReset();
         xEncoder.stopAndReset();
-    }
+    }*/
 
 
 }

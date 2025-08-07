@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.teamcalamari.lib;
+package org.firstinspires.ftc.teamcode.teamcalamari.lib.util;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 

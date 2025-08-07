@@ -46,8 +46,7 @@ import com.qualcomm.robotcore.hardware.DcMotorImpl;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import virtual_robot.robots.ControlsElements;
-import virtual_robot.robots.classes.CalamariBot;
-import virtual_robot.robots.classes.MecanumBot;
+import virtual_robot.robots.classes.CalamariBot3;
 import virtual_robot.keyboard.KeyState;
 
 import java.io.IOException;
@@ -308,7 +307,7 @@ public class VirtualRobotController {
                 validConfigClasses.add(c);
         }
         cbxConfig.setItems(validConfigClasses);
-        cbxConfig.setValue(CalamariBot.class);
+        cbxConfig.setValue(CalamariBot3.class);
 
         cbxConfig.setCellFactory(new Callback<ListView<Class<?>>, ListCell<Class<?>>>() {
             @Override

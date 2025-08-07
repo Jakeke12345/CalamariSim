@@ -36,7 +36,7 @@ public abstract class MecanumPhysicsBase extends VirtualBot {
 
     public final MotorType MOTOR_TYPE;
     private final String[] MOTOR_NAMES;
-    private DeadWheelEncoder[] encoders;
+    private DeadWheelEncoder[] encoders = {null, null, null, null};
     private final boolean USE_DIST, USE_COLOR;
     private DcMotorExImpl[] motors = null;
     private BNO055IMUImpl imu = null;
